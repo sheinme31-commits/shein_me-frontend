@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { ShoppingBag, ArrowLeft, Trash2 } from 'lucide-react'
 import { useCart } from '../../context/CartContext'
 import CartItem from '../../Components/public/CartItem'
@@ -6,7 +6,6 @@ import CheckoutForm from '../../Components/public/CheckoutForm'
 import api from '../../utils/api'
 import toast from 'react-hot-toast'
 import { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
 function CartPage() {
   const { items, total, clearCart } = useCart()
   const navigate = useNavigate()
