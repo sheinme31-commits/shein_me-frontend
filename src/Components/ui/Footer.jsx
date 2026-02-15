@@ -2,7 +2,58 @@
 
 import { Link } from 'react-router-dom'
 import { Zap, Instagram, Twitter } from 'lucide-react'
+import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
+function AdminSecretAccess() {
+  const [clicks, setClicks] = useState(0)
+  const [showInput, setShowInput] = useState(false)
+  const [value, setValue] = useState('')
+  const navigate = useNavigate()
+
+  const handleClick = () => {
+    const next = clicks + 1
+    setClicks(next)
+    if (next >= 3) {
+      setShowInput(true)
+      setClicks(0)
+    }
+  }
+
+  const handleChange = (e) => {
+    const val = e.target.value
+    setValue(val)
+    if (val.toLowerCase() === 'admin') {
+      setShowInput(false)
+      setValue('')
+      navigate('/admin/login')
+    }
+  }
+
+  return (
+    <div className="relative">
+      <span
+        onClick={handleClick}
+        className="text-brand-gray-900 text-xs cursor-default select-none"
+      >
+        ©
+      </span>
+      {showInput && (
+        <input
+          autoFocus
+          type="text"
+          value={value}
+          onChange={handleChange}
+          onBlur={() => { setShowInput(false); setValue(''); setClicks(0) }}
+          className="absolute bottom-6 right-0 w-28 bg-brand-gray-900 border border-brand-gray-700
+                     text-brand-white text-xs font-body px-2 py-1 outline-none
+                     focus:border-brand-red"
+          placeholder="..."
+        />
+      )}
+    </div>
+  )
+}
 function Footer() {
   return (
     <footer className="bg-brand-gray-900 border-t border-brand-gray-800 mt-auto">
@@ -78,13 +129,7 @@ function Footer() {
           <p className="text-brand-gray-600 text-xs font-body">
             © {new Date().getFullYear()} SOLEKICKS. Tous droits réservés.
           </p>
-          <Link
-            to="/admin/login"
-            className="text-brand-gray-700 hover:text-brand-gray-500 text-xs font-body
-                       transition-colors duration-200"
-          >
-            Espace Admin
-          </Link>
+          <AdminSecretAccess />
         </div>
       </div>
     </footer>

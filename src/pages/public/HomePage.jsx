@@ -53,7 +53,7 @@ function HomePage() {
             <div className="flex items-center gap-3 mb-6">
               <span className="tag">Nouvelle collection</span>
               <span className="text-brand-gray-500 text-xs font-body tracking-widest">
-                — ALGÉRIE 2025
+                — ALGÉRIE 
               </span>
             </div>
 
