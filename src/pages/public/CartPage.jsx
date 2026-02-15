@@ -1,6 +1,3 @@
-// src/pages/public/CartPage.jsx
-// Page panier — liste des articles + formulaire de commande
-
 import { useNavigate } from 'react-router-dom'
 import { ShoppingBag, ArrowLeft, Trash2 } from 'lucide-react'
 import { useCart } from '../../context/CartContext'
@@ -9,164 +6,116 @@ import CheckoutForm from '../../Components/public/CheckoutForm'
 import api from '../../utils/api'
 import toast from 'react-hot-toast'
 import { useState } from 'react'
-
+import { Link, useNavigate } from 'react-router-dom'
 function CartPage() {
   const { items, total, clearCart } = useCart()
   const navigate = useNavigate()
   const [submitting, setSubmitting] = useState(false)
 
   const handleOrder = async (customerInfo) => {
-    if (items.length === 0) {
-      toast.error('Votre panier est vide')
-      return
-    }
+    if (items.length === 0) { toast.error('Votre panier est vide'); return }
     setSubmitting(true)
     try {
-      const orderData = {
+      await api.post('/orders', {
         customerInfo,
         items: items.map((item) => ({
-          product: item.productId,
-          name: item.name,
-          size: item.size,
-          quantity: item.quantity,
-          price: item.price,
+          product: item.productId, name: item.name, size: item.size,
+          quantity: item.quantity, price: item.price,
         })),
         total,
-      }
-      await api.post('/orders', orderData)
+      })
       clearCart()
       navigate('/confirmation', { replace: true })
     } catch (err) {
-      toast.error(err.response?.data?.message || 'Erreur lors de la commande. Réessayez.')
+      toast.error(err.response?.data?.message || 'Erreur lors de la commande.')
     } finally {
-      setSubmitting(false)
-    }
+      setSubmitting(false) }
   }
 
   if (items.length === 0) {
     return (
-      <div className="min-h-screen bg-brand-black pt-16 flex items-center justify-center">
+      <div className="min-h-screen bg-lm-ivory pt-20 flex items-center justify-center">
         <div className="text-center px-4">
-          <div className="font-display text-[10rem] leading-none text-brand-gray-800 mb-6">
-            0
-          </div>
-          <p className="font-heading font-bold text-xl text-brand-gray-400 mb-2">
-            Votre panier est vide
+          <p className="font-display text-8xl font-light text-lm-cream italic mb-6">vide</p>
+          <p className="font-display font-light text-lm-taupe text-2xl mb-2">Votre panier est vide</p>
+          <p className="text-lm-taupe font-body font-light text-sm mb-10">
+            Découvrez notre sélection
           </p>
-          <p className="text-brand-gray-600 font-body mb-8">
-            Découvrez notre collection de sneakers
-          </p>
-          <button
-            onClick={() => navigate('/products')}
-            className="btn-primary inline-flex items-center gap-3"
-          >
-            <ShoppingBag size={16} />
-            Explorer les produits
-          </button>
+          <Link to="/products" className="btn-primary">
+            <ShoppingBag size={14} strokeWidth={1} /> Explorer la boutique
+          </Link>
         </div>
       </div>
     )
   }
 
   return (
-    <div className="min-h-screen bg-brand-black pt-16">
-
-      {/* En-tête */}
-      <div className="bg-brand-gray-900 border-b border-brand-gray-800 py-8">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6">
-          <button
-            onClick={() => navigate('/products')}
-            className="flex items-center gap-2 text-brand-gray-500 hover:text-brand-white
-                       transition-colors text-sm font-body mb-4 group"
-          >
-            <ArrowLeft size={14} className="group-hover:-translate-x-1 transition-transform" />
-            Continuer les achats
+    <div className="min-h-screen bg-lm-ivory pt-20">
+      <div className="bg-lm-cream border-b border-lm-sand py-12">
+        <div className="max-w-6xl mx-auto px-6 sm:px-10">
+          <button onClick={() => navigate('/products')}
+            className="flex items-center gap-2 text-lm-taupe hover:text-lm-noir
+                       transition-colors text-xs font-body font-light tracking-luxury
+                       uppercase mb-6 group">
+            <ArrowLeft size={12} strokeWidth={1}
+              className="group-hover:-translate-x-1 transition-transform" />
+            Continuer mes achats
           </button>
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="section-label">Récapitulatif</p>
-              <h1 className="section-title">MON PANIER</h1>
-            </div>
-            <span className="font-display text-3xl text-brand-gray-600">
-              {items.length}
-            </span>
-          </div>
+          <p className="lm-label mb-3">Récapitulatif</p>
+          <h1 className="font-display font-light text-lm-noir text-5xl">Mon panier</h1>
         </div>
       </div>
 
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-10">
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
-
-          {/* ── Articles ──────────────────────────────────────────────────── */}
-          <div className="lg:col-span-3 space-y-3">
-            <div className="flex items-center justify-between mb-4">
-              <p className="text-brand-gray-400 text-xs font-heading font-semibold
-                             tracking-widest uppercase">
+      <div className="max-w-6xl mx-auto px-6 sm:px-10 py-16">
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-16">
+          {/* Articles */}
+          <div className="lg:col-span-3">
+            <div className="flex justify-between items-center mb-2 pb-4 border-b border-lm-sand">
+              <p className="text-lm-taupe font-body font-light text-xs tracking-luxury uppercase">
                 {items.length} article{items.length !== 1 ? 's' : ''}
               </p>
-              <button
-                onClick={clearCart}
-                className="flex items-center gap-1 text-brand-gray-600 hover:text-brand-red
-                           transition-colors text-xs font-body"
-              >
-                <Trash2 size={12} />
-                Vider le panier
+              <button onClick={clearCart}
+                className="flex items-center gap-1 text-lm-sand hover:text-lm-taupe
+                           transition-colors text-xs font-body font-light">
+                <Trash2 size={11} strokeWidth={1} /> Vider
               </button>
             </div>
-
-            {items.map((item) => (
-              <CartItem key={item.key} item={item} />
-            ))}
+            {items.map((item) => <CartItem key={item.key} item={item} />)}
           </div>
 
-          {/* ── Résumé & commande ─────────────────────────────────────────── */}
+          {/* Résumé */}
           <div className="lg:col-span-2">
-            <div className="sticky top-24 space-y-6">
-
-              {/* Total */}
-              <div className="bg-brand-gray-900 border border-brand-gray-700 p-6">
-                <p className="text-brand-gray-400 text-xs font-heading font-semibold
-                               tracking-widest uppercase mb-4">
-                  Récapitulatif de commande
-                </p>
-
-                <div className="space-y-2 mb-4">
+            <div className="sticky top-24 space-y-12">
+              <div>
+                <p className="lm-label mb-6">Total de la commande</p>
+                <div className="space-y-3 mb-6">
                   {items.map((item) => (
-                    <div key={item.key} className="flex justify-between text-sm font-body">
-                      <span className="text-brand-gray-400 truncate mr-2 flex-1">
+                    <div key={item.key} className="flex justify-between text-sm font-body font-light">
+                      <span className="text-lm-taupe truncate mr-4 flex-1">
                         {item.name} ×{item.quantity}
                       </span>
-                      <span className="text-brand-gray-300 whitespace-nowrap">
+                      <span className="text-lm-noir whitespace-nowrap">
                         {(item.price * item.quantity).toLocaleString('fr-DZ')} DA
                       </span>
                     </div>
                   ))}
                 </div>
-
-                <div className="h-px bg-brand-gray-700 mb-4" />
-
-                <div className="flex items-baseline justify-between">
-                  <span className="font-heading font-bold tracking-widest uppercase text-sm
-                                   text-brand-gray-400">
+                <div className="h-px bg-lm-sand mb-6" />
+                <div className="flex justify-between items-baseline">
+                  <span className="font-body font-light text-lm-taupe tracking-luxury uppercase text-xs">
                     Total
                   </span>
-                  <span className="font-display text-3xl text-brand-white">
-                    {total.toLocaleString('fr-DZ')}
-                    <span className="text-base text-brand-gray-400 font-body ml-1">DA</span>
+                  <span className="font-display font-light text-lm-noir text-3xl">
+                    {total.toLocaleString('fr-DZ')} DA
                   </span>
                 </div>
-
-                <p className="text-brand-gray-600 text-xs font-body mt-2 text-right">
+                <p className="text-lm-sand text-xs font-body font-light mt-2 text-right">
                   Paiement à la livraison
                 </p>
               </div>
 
-              {/* Formulaire de commande */}
-              <div className="bg-brand-gray-900 border border-brand-gray-700 p-6">
-                <p className="text-brand-gray-400 text-xs font-heading font-semibold
-                               tracking-widest uppercase mb-5">
-                  Informations de livraison
-                </p>
+              <div>
+                <p className="lm-label mb-8">Informations de livraison</p>
                 <CheckoutForm onSubmit={handleOrder} loading={submitting} />
               </div>
             </div>
