@@ -6,7 +6,7 @@ import { Plus, Trash2, Upload, X, ImageIcon, Loader2 } from 'lucide-react'
 import api from '../../utils/api'
 import toast from 'react-hot-toast'
 
-const CATEGORIES = ['Hauts', 'Bas', 'Jean', 'Sacs']
+const CATEGORIES = ['Bébé', 'Enfants', 'Femme', 'Homme', 'Lingerie', 'Accessoires']
 
 const EMPTY_PRODUCT = {
   name: '',

@@ -1,16 +1,21 @@
 import { useState, useEffect, useMemo } from 'react'
 import { useSearchParams } from 'react-router-dom'
-import { Search, X } from 'lucide-react'
+import { Search, X, SlidersHorizontal } from 'lucide-react'
 import api from '../../utils/api'
 import ProductGrid from '../../Components/public/ProductGrid'
 
-const CATEGORIES = ['Tous', 'Hauts', 'Bas', 'Jean', 'Sacs']
+const CATEGORIES = ['Tous', 'Bébé', 'Enfants', 'Femme', 'Homme', 'Lingerie', 'Accessoires']
+
+const CAT_EMOJIS = {
+  'Tous': '🛍️', 'Bébé': '👶', 'Enfants': '🧒',
+  'Femme': '👗', 'Homme': '👔', 'Lingerie': '🌸', 'Accessoires': '👜'
+}
 
 function ProductsPage() {
   const [searchParams, setSearchParams] = useSearchParams()
   const [products, setProducts] = useState([])
   const [loading, setLoading] = useState(true)
-  const [search, setSearch] = useState('')
+  const [search, setSearch] = useState(searchParams.get('search') || '')
   const activeCategory = searchParams.get('category') || 'Tous'
 
   useEffect(() => {
@@ -35,55 +40,51 @@ function ProductsPage() {
   }
 
   return (
-    <div className="min-h-screen bg-lm-ivory">
+    <div className="min-h-screen bg-sf-cream">
       {/* En-tête */}
-      <div className="bg-lm-cream pt-32 pb-16 border-b border-lm-sand">
+      <div className="bg-gradient-to-r from-sf-rose-soft to-sf-sage-soft pt-28 pb-12
+                      border-b border-sf-beige-dark">
         <div className="max-w-7xl mx-auto px-6 sm:px-10">
-          <p className="lm-label mb-4">Catalogue</p>
-          <h1 className="font-display font-light text-lm-noir text-5xl md:text-6xl mb-2">
-            {activeCategory === 'Tous' ? 'Tous les articles' : activeCategory}
+          <p className="sf-label mb-3">Boutique</p>
+          <h1 className="font-display text-sf-text text-5xl mb-2">
+            {activeCategory === 'Tous' ? 'Tous les articles' : `${CAT_EMOJIS[activeCategory]} ${activeCategory}`}
           </h1>
-          <p className="text-lm-taupe font-body font-light text-sm">
-            {loading ? '...' : `${filtered.length} pièce${filtered.length !== 1 ? 's' : ''}`}
+          <p className="font-body text-sf-text-soft text-sm">
+            {loading ? '...' : `${filtered.length} article${filtered.length !== 1 ? 's' : ''}`}
           </p>
         </div>
       </div>
 
       {/* Filtres */}
-      <div className="sticky top-0 z-40 bg-lm-ivory/95 backdrop-blur-sm border-b border-lm-cream">
-        <div className="max-w-7xl mx-auto px-6 sm:px-10 py-4
+      <div className="sticky top-0 z-40 bg-white/95 backdrop-blur-sm border-b border-sf-beige shadow-soft">
+        <div className="max-w-7xl mx-auto px-6 sm:px-10 py-3
                         flex flex-col sm:flex-row items-start sm:items-center gap-4 justify-between">
-          <div className="flex items-center gap-6 flex-wrap">
+          <div className="flex items-center gap-2 flex-wrap">
             {CATEGORIES.map((cat) => (
-              <button
-                key={cat}
-                onClick={() => setCategory(cat)}
-                className={`font-body font-light tracking-luxury uppercase text-xs
-                             transition-all duration-300 pb-1 border-b
+              <button key={cat} onClick={() => setCategory(cat)}
+                className={`flex items-center gap-1.5 px-4 py-2 rounded-full text-xs
+                             font-body font-600 transition-all duration-200
                              ${activeCategory === cat
-                               ? 'text-lm-noir border-lm-gold'
-                               : 'text-lm-taupe border-transparent hover:text-lm-noir hover:border-lm-sand'
-                             }`}
-              >
-                {cat}
+                               ? 'bg-sf-rose text-sf-text shadow-rose'
+                               : 'bg-sf-beige text-sf-text-soft hover:bg-sf-rose-soft hover:text-sf-text'
+                             }`}>
+                <span>{CAT_EMOJIS[cat]}</span> {cat}
               </button>
             ))}
           </div>
 
-          <div className="relative">
-            <Search size={12} strokeWidth={1}
-              className="absolute left-0 top-1/2 -translate-y-1/2 text-lm-taupe" />
-            <input
-              type="text" value={search} onChange={(e) => setSearch(e.target.value)}
+          <div className="relative flex-shrink-0">
+            <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-sf-text-light" />
+            <input type="text" value={search} onChange={(e) => setSearch(e.target.value)}
               placeholder="Rechercher..."
-              className="bg-transparent border-b border-lm-sand text-lm-noir font-body
-                         font-light text-xs pl-5 pr-6 py-2 outline-none focus:border-lm-gold
-                         placeholder:text-lm-sand w-48 transition-colors"
-            />
+              className="bg-sf-beige border border-sf-beige-dark rounded-full text-sf-text
+                         font-body text-xs pl-8 pr-8 py-2 outline-none focus:border-sf-rose
+                         placeholder:text-sf-text-light w-44 transition-all" />
             {search && (
               <button onClick={() => setSearch('')}
-                className="absolute right-0 top-1/2 -translate-y-1/2 text-lm-taupe">
-                <X size={10} />
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-sf-text-light
+                           hover:text-sf-text">
+                <X size={12} />
               </button>
             )}
           </div>
@@ -91,7 +92,7 @@ function ProductsPage() {
       </div>
 
       {/* Grille */}
-      <div className="max-w-7xl mx-auto px-6 sm:px-10 py-16">
+      <div className="max-w-7xl mx-auto px-6 sm:px-10 py-12">
         <ProductGrid products={filtered} loading={loading}
           emptyMessage="Aucun article dans cette catégorie." />
       </div>

@@ -4,84 +4,81 @@
 
 @layer base {
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  
   html { scroll-behavior: smooth; }
-  
   body {
-    background-color: #F8F4EE;
-    color: #1A1614;
-    font-family: 'Jost', sans-serif;
-    font-weight: 300;
+    background-color: #FAF7F2;
+    color: #3D3530;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 400;
     -webkit-font-smoothing: antialiased;
   }
-
-  ::selection {
-    background-color: #B8976A;
-    color: #FDFAF6;
-  }
-
-  ::-webkit-scrollbar { width: 4px; }
-  ::-webkit-scrollbar-track { background: #F8F4EE; }
-  ::-webkit-scrollbar-thumb { background: #D4C9B5; }
-  ::-webkit-scrollbar-thumb:hover { background: #B8976A; }
+  ::selection { background-color: #F2C4CE; color: #3D3530; }
+  ::-webkit-scrollbar { width: 5px; }
+  ::-webkit-scrollbar-track { background: #FAF7F2; }
+  ::-webkit-scrollbar-thumb { background: #E5DDD0; border-radius: 10px; }
+  ::-webkit-scrollbar-thumb:hover { background: #A8BBA8; }
 }
 
 @layer components {
   .btn-primary {
-    @apply inline-flex items-center justify-center gap-3
-           bg-lm-noir text-lm-ivory font-body font-light
-           tracking-luxury uppercase text-xs px-10 py-4
-           transition-all duration-500
-           hover:bg-lm-gold hover:text-lm-white;
+    @apply inline-flex items-center justify-center gap-2
+           bg-sf-rose text-sf-text font-body font-600
+           rounded-full px-8 py-3 text-sm
+           transition-all duration-300
+           hover:bg-sf-rose-dark hover:shadow-rose;
   }
 
-  .btn-outline {
-    @apply inline-flex items-center justify-center gap-3
-           bg-transparent text-lm-noir font-body font-light
-           tracking-luxury uppercase text-xs px-10 py-4
-           border border-lm-noir transition-all duration-500
-           hover:bg-lm-noir hover:text-lm-ivory;
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2
+           bg-transparent text-sf-text font-body font-600
+           rounded-full px-8 py-3 text-sm border-2 border-sf-beige-dark
+           transition-all duration-300
+           hover:border-sf-rose hover:bg-sf-rose-soft;
   }
 
-  .btn-ghost {
-    @apply inline-flex items-center gap-2 text-lm-taupe
-           font-body font-light tracking-luxury uppercase text-xs
-           transition-colors duration-300 hover:text-lm-noir;
+  .btn-sage {
+    @apply inline-flex items-center justify-center gap-2
+           bg-sf-sage text-white font-body font-600
+           rounded-full px-8 py-3 text-sm
+           transition-all duration-300
+           hover:bg-sf-sage-dark hover:shadow-soft;
   }
 
   .card-product {
-    @apply bg-transparent overflow-hidden transition-all duration-500
-           cursor-pointer;
+    @apply bg-white rounded-2xl overflow-hidden shadow-soft
+           transition-all duration-300 cursor-pointer
+           hover:shadow-soft-lg hover:-translate-y-1;
   }
 
-  .lm-label {
-    @apply text-lm-gold font-body font-light tracking-ultra uppercase text-xs;
+  .sf-label {
+    @apply text-sf-rose-dark font-body font-600 tracking-widest uppercase text-xs;
   }
 
-  .lm-title {
-    @apply font-display font-light text-lm-noir leading-none;
+  .sf-title {
+    @apply font-display text-sf-text leading-tight;
   }
 
-  .lm-input {
-    @apply w-full bg-transparent border-b border-lm-sand text-lm-noir
-           font-body font-light text-sm px-0 py-3 outline-none
-           transition-colors duration-300 placeholder:text-lm-sand
-           focus:border-lm-gold;
+  .sf-input {
+    @apply w-full bg-white border border-sf-beige-dark text-sf-text
+           font-body text-sm px-4 py-3 rounded-xl outline-none
+           transition-all duration-300 placeholder:text-sf-text-light
+           focus:border-sf-rose focus:ring-2 focus:ring-sf-rose/20;
   }
 
-  .lm-select {
-    @apply w-full bg-transparent border-b border-lm-sand text-lm-noir
-           font-body font-light text-sm px-0 py-3 outline-none
-           transition-colors duration-300 focus:border-lm-gold
-           appearance-none cursor-pointer;
+  .sf-select {
+    @apply w-full bg-white border border-sf-beige-dark text-sf-text
+           font-body text-sm px-4 py-3 rounded-xl outline-none
+           transition-all duration-300 focus:border-sf-rose
+           focus:ring-2 focus:ring-sf-rose/20 appearance-none cursor-pointer;
   }
 
-  .divider {
-    @apply h-px bg-lm-sand w-full;
+  .badge {
+    @apply inline-block bg-sf-rose text-sf-text text-xs font-body
+           font-700 px-3 py-1 rounded-full;
   }
 
-  .tag-lm {
-    @apply text-lm-gold font-body font-light tracking-luxury uppercase text-xs
-           border border-lm-gold/40 px-3 py-1;
+  .badge-sage {
+    @apply inline-block bg-sf-sage text-white text-xs font-body
+           font-700 px-3 py-1 rounded-full;
   }
 }

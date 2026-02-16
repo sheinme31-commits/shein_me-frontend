@@ -4,51 +4,51 @@ export default {
   theme: {
     extend: {
       colors: {
-        lm: {
-          ivory: '#F8F4EE',
-          cream: '#EDE8DF',
-          sand: '#D4C9B5',
-          gold: '#B8976A',
-          'gold-light': '#D4B896',
-          taupe: '#8B7355',
-          brown: '#5C4A32',
-          noir: '#1A1614',
-          'noir-soft': '#2C2420',
-          white: '#FDFAF6',
+        sf: {
+          cream: '#FAF7F2',
+          white: '#FFFFFF',
+          beige: '#F0EAE0',
+          'beige-dark': '#E5DDD0',
+          rose: '#F2C4CE',
+          'rose-dark': '#E8A8B5',
+          'rose-soft': '#FBF0F2',
+          sage: '#A8BBA8',
+          'sage-dark': '#8DA68D',
+          'sage-soft': '#EEF3EE',
+          brown: '#8B6F5E',
+          'brown-light': '#C4A898',
+          text: '#3D3530',
+          'text-soft': '#7A6E69',
+          'text-light': '#A89F9A',
         },
       },
       fontFamily: {
-        display: ['"Cormorant Garamond"', 'Georgia', 'serif'],
-        italic: ['"Cormorant"', 'Georgia', 'serif'],
-        body: ['"Jost"', 'sans-serif'],
-      },
-      letterSpacing: {
-        luxury: '0.25em',
-        ultra: '0.4em',
+        display: ['"Playfair Display"', 'Georgia', 'serif'],
+        body: ['"Nunito"', 'sans-serif'],
       },
       animation: {
-        'fade-up': 'fadeUp 0.8s ease-out both',
-        'fade-in': 'fadeIn 0.6s ease-out both',
-        'line-grow': 'lineGrow 0.8s ease-out both',
-        'marquee': 'marquee 30s linear infinite',
+        'fade-up': 'fadeUp 0.7s ease-out both',
+        'fade-in': 'fadeIn 0.5s ease-out both',
+        'marquee': 'marquee 35s linear infinite',
       },
       keyframes: {
         fadeUp: {
-          '0%': { opacity: 0, transform: 'translateY(24px)' },
+          '0%': { opacity: 0, transform: 'translateY(20px)' },
           '100%': { opacity: 1, transform: 'translateY(0)' },
         },
         fadeIn: {
           '0%': { opacity: 0 },
           '100%': { opacity: 1 },
         },
-        lineGrow: {
-          '0%': { transform: 'scaleX(0)' },
-          '100%': { transform: 'scaleX(1)' },
-        },
         marquee: {
           '0%': { transform: 'translateX(0)' },
           '100%': { transform: 'translateX(-50%)' },
         },
+      },
+      boxShadow: {
+        'soft': '0 4px 24px rgba(139, 111, 94, 0.08)',
+        'soft-lg': '0 8px 40px rgba(139, 111, 94, 0.12)',
+        'rose': '0 4px 24px rgba(242, 196, 206, 0.4)',
       },
     },
   },

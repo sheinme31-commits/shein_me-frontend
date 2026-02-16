@@ -31,53 +31,70 @@ function CheckoutForm({ onSubmit, loading }) {
     onSubmit(form)
   }
 
-  const Field = ({ name, label, type = 'text', placeholder, autoComplete }) => (
-    <div>
-      <label className="block text-lm-taupe font-body font-light tracking-luxury
-                         uppercase text-xs mb-3">{label}</label>
-      <input
-        type={type} name={name} value={form[name]} onChange={handleChange}
-        placeholder={placeholder} autoComplete={autoComplete}
-        className={`lm-input ${errors[name] ? 'border-red-400' : ''}`}
-      />
-      {errors[name] && <p className="mt-1 text-red-400 text-xs font-body">{errors[name]}</p>}
-    </div>
-  )
-
   return (
-    <form onSubmit={handleSubmit} className="space-y-8" noValidate>
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-        <Field name="firstName" label="Prénom" placeholder="Sophie" autoComplete="given-name" />
-        <Field name="lastName" label="Nom" placeholder="Martin" autoComplete="family-name" />
+    <form onSubmit={handleSubmit} className="space-y-4" noValidate>
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div>
+          <label className="block font-body text-sf-text-soft text-xs font-600
+                             uppercase tracking-wider mb-2">Prénom</label>
+          <input type="text" name="firstName" value={form.firstName}
+            onChange={handleChange} placeholder="Amina" autoComplete="given-name"
+            className={`sf-input ${errors.firstName ? 'border-red-300 ring-2 ring-red-100' : ''}`} />
+          {errors.firstName && <p className="mt-1 text-red-400 text-xs">{errors.firstName}</p>}
+        </div>
+        <div>
+          <label className="block font-body text-sf-text-soft text-xs font-600
+                             uppercase tracking-wider mb-2">Nom</label>
+          <input type="text" name="lastName" value={form.lastName}
+            onChange={handleChange} placeholder="Benali" autoComplete="family-name"
+            className={`sf-input ${errors.lastName ? 'border-red-300 ring-2 ring-red-100' : ''}`} />
+          {errors.lastName && <p className="mt-1 text-red-400 text-xs">{errors.lastName}</p>}
+        </div>
       </div>
-      <Field name="phone" label="Téléphone" type="tel" placeholder="0551234567" autoComplete="tel" />
+
       <div>
-        <label className="block text-lm-taupe font-body font-light tracking-luxury uppercase text-xs mb-3">
-          Wilaya
-        </label>
+        <label className="block font-body text-sf-text-soft text-xs font-600
+                           uppercase tracking-wider mb-2">Téléphone</label>
+        <input type="tel" name="phone" value={form.phone} onChange={handleChange}
+          placeholder="0551234567" autoComplete="tel" inputMode="numeric"
+          className={`sf-input ${errors.phone ? 'border-red-300 ring-2 ring-red-100' : ''}`} />
+        {errors.phone && <p className="mt-1 text-red-400 text-xs">{errors.phone}</p>}
+      </div>
+
+      <div>
+        <label className="block font-body text-sf-text-soft text-xs font-600
+                           uppercase tracking-wider mb-2">Wilaya</label>
         <div className="relative">
           <select name="wilaya" value={form.wilaya} onChange={handleChange}
-            className={`lm-select w-full ${errors.wilaya ? 'border-red-400' : ''}`}>
-            <option value="">Sélectionner</option>
+            className={`sf-select ${errors.wilaya ? 'border-red-300 ring-2 ring-red-100' : ''}`}>
+            <option value="">Sélectionner une wilaya</option>
             {wilayas.map((w) => (
               <option key={w.code} value={w.name}>{w.code} — {w.name}</option>
             ))}
           </select>
-          <ChevronDown size={14} strokeWidth={1}
-            className="absolute right-0 top-1/2 -translate-y-1/2 text-lm-taupe pointer-events-none" />
+          <ChevronDown size={16} className="absolute right-4 top-1/2 -translate-y-1/2
+                                            text-sf-text-soft pointer-events-none" />
         </div>
-        {errors.wilaya && <p className="mt-1 text-red-400 text-xs font-body">{errors.wilaya}</p>}
+        {errors.wilaya && <p className="mt-1 text-red-400 text-xs">{errors.wilaya}</p>}
       </div>
-      <Field name="commune" label="Commune" placeholder="Votre commune" autoComplete="address-level2" />
 
-      <button type="submit" disabled={loading} className="btn-primary w-full mt-4">
-        {loading
-          ? <span className="flex items-center gap-3">
-              <span className="w-3 h-3 border border-lm-ivory/30 border-t-lm-ivory rounded-full animate-spin" />
-              Traitement...
-            </span>
-          : 'Confirmer la commande'
-        }
+      <div>
+        <label className="block font-body text-sf-text-soft text-xs font-600
+                           uppercase tracking-wider mb-2">Commune</label>
+        <input type="text" name="commune" value={form.commune} onChange={handleChange}
+          placeholder="Votre commune" autoComplete="address-level2"
+          className={`sf-input ${errors.commune ? 'border-red-300 ring-2 ring-red-100' : ''}`} />
+        {errors.commune && <p className="mt-1 text-red-400 text-xs">{errors.commune}</p>}
+      </div>
+
+      <button type="submit" disabled={loading} className="btn-primary w-full mt-2 py-4">
+        {loading ? (
+          <span className="flex items-center justify-center gap-2">
+            <span className="w-4 h-4 border-2 border-sf-text/20 border-t-sf-text
+                             rounded-full animate-spin" />
+            Traitement...
+          </span>
+        ) : '🛍️ Confirmer la commande'}
       </button>
     </form>
   )
