@@ -48,7 +48,7 @@ function Navbar() {
               <span className="font-display text-sf-text text-sm font-600">S</span>
             </div>
             <div>
-              <p className="font-display text-sf-text text-lg leading-none">Soft Family</p>
+              <p className="font-display text-sf-text text-lg leading-none">SheinMe</p>
               <p className="font-body text-sf-text-light text-[10px] tracking-widest uppercase">Store</p>
             </div>
           </Link>

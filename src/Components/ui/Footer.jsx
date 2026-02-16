@@ -71,7 +71,7 @@ function Footer() {
         <div className="whitespace-nowrap animate-marquee inline-block">
           {Array.from({ length: 10 }).map((_, i) => (
             <span key={i} className="inline-block mx-10 font-display text-sf-text-light italic text-sm">
-              Soft Family Store • Mode & Tendance • Bébé • Enfants • Femme • Homme •
+              SheinMe Store • Mode & Tendance • Bébé • Enfants • Femme • Homme •
             </span>
           ))}
         </div>
@@ -86,7 +86,7 @@ function Footer() {
                 <span className="font-display text-sf-text text-sm">S</span>
               </div>
               <div>
-                <p className="font-display text-sf-text text-xl">Soft Family Store</p>
+                <p className="font-display text-sf-text text-xl">SheinMe Store</p>
               </div>
             </div>
             <p className="font-body text-sf-text-soft text-sm leading-relaxed max-w-xs mb-6">
@@ -139,7 +139,7 @@ function Footer() {
         <div className="mt-10 pt-6 border-t border-sf-beige-dark flex items-center justify-between">
           <p className="font-body text-sf-text-light text-xs flex items-center gap-1">
             <AdminSecretAccess />
-            {' '}{new Date().getFullYear()} Soft Family Store. Fait avec{' '}
+            {' '}{new Date().getFullYear()} SheinMe Store. Fait avec{' '}
             <Heart size={10} className="text-sf-rose fill-sf-rose" /> en Algérie
           </p>
         </div>
